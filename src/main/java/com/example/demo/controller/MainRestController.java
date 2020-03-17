@@ -1,4 +1,4 @@
-package net.test.controller;
+package com.example.demo.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,14 +6,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.entity.AppUser;
+import com.example.demo.entity.Response;
+import com.example.demo.entity.UserWrapper;
+import com.example.demo.service.RoleService;
+import com.example.demo.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.test.entity.AppUser;
-import net.test.entity.Response;
-import net.test.entity.UserWrapper;
-import net.test.service.RoleService;
-import net.test.service.UserService;
 
 @RestController
 public class MainRestController {

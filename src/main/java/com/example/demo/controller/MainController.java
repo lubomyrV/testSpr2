@@ -1,10 +1,6 @@
-package net.test.controller;
+package com.example.demo.controller;
 
-import java.util.List;
 import java.security.Principal;
-import net.test.entity.AppUser;
-import net.test.service.UserService;
-import net.test.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.example.demo.service.UserService;
+import com.example.demo.utils.WebUtils;
  
 @Controller
 public class MainController {
@@ -33,21 +31,6 @@ public class MainController {
         model.addAttribute("title", "Welcome");
         model.addAttribute("message", "This is welcome page!");
         return "welcomePage";
-    }
- 
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String adminPage(Model model, Principal principal) {
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        String userInfo = WebUtils.toString(loginedUser);
-        model.addAttribute("userInfo", userInfo);        
-        return "adminPage";
-    }
-    
-    @RequestMapping(value = "/shearchUsers", method = RequestMethod.GET)
-    public String shearchUsers(Model model, @RequestParam String nameOrEmail) {
-        List<AppUser> users = userService.findUsersByUserameOrEmail(nameOrEmail);
-        model.addAttribute("users",users);
-        return "adminPage";
     }
  
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -85,7 +68,7 @@ public class MainController {
         	}
         } catch (Exception e){
         	System.out.println("newUser exception: "+e);
-        	e.printStackTrace();
+        	//e.printStackTrace();
         }
 
         return "redirect:/";
@@ -101,8 +84,7 @@ public class MainController {
     public String userInfo(Model model, Principal principal) {
  
         // After user login successfully.
-        String userName = principal.getName();
- 
+        //String userName = principal.getName();
         //System.out.println("User Name: " + userName);
  
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
@@ -123,8 +105,7 @@ public class MainController {
  
             model.addAttribute("userInfo", userInfo);
  
-            String message = "Hi " + principal.getName() //
-                    + "<br> You do not have permission to access this page!";
+            String message = "Hi " + principal.getName() + "<br> You do not have permission to access this page!";
             model.addAttribute("message", message);
  
         }

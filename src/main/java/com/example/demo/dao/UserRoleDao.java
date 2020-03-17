@@ -1,4 +1,4 @@
-package net.test.dao;
+package com.example.demo.dao;
 
 import java.util.HashMap;
 

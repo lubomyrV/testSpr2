@@ -1,14 +1,9 @@
-package net.test.service;
+package com.example.demo.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import net.test.dao.AppUserDao;
-import net.test.entity.AppUser;
-import net.test.entity.Role;
-import net.test.entity.UserWrapper;
-import net.test.dao.RoleDao;
-import net.test.dao.UserRoleDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,6 +12,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.dao.AppUserDao;
+import com.example.demo.dao.RoleDao;
+import com.example.demo.dao.UserRoleDao;
+import com.example.demo.entity.AppUser;
+import com.example.demo.entity.Role;
+import com.example.demo.entity.UserWrapper;
  
 @Service
 public class UserService implements UserDetailsService {

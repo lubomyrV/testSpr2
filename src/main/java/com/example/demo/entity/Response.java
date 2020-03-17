@@ -1,4 +1,4 @@
-package net.test.entity;
+package com.example.demo.entity;
 
 public class Response {
 	private String status;

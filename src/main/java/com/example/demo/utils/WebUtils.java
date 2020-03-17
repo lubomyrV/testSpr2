@@ -1,4 +1,4 @@
-package net.test.utils;
+package com.example.demo.utils;
 
 import java.util.Collection;
 
