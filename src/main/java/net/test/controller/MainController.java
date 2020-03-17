@@ -1,6 +1,8 @@
 package net.test.controller;
 
+import java.util.List;
 import java.security.Principal;
+import net.test.entity.AppUser;
 import net.test.service.UserService;
 import net.test.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +37,16 @@ public class MainController {
  
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPage(Model model, Principal principal) {
-         
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
- 
         String userInfo = WebUtils.toString(loginedUser);
-        model.addAttribute("userInfo", userInfo);
-         
+        model.addAttribute("userInfo", userInfo);        
+        return "adminPage";
+    }
+    
+    @RequestMapping(value = "/shearchUsers", method = RequestMethod.GET)
+    public String shearchUsers(Model model, @RequestParam String nameOrEmail) {
+        List<AppUser> users = userService.findUsersByUserameOrEmail(nameOrEmail);
+        model.addAttribute("users",users);
         return "adminPage";
     }
  
@@ -56,32 +62,30 @@ public class MainController {
     
     @RequestMapping(value = "/newUser", method = RequestMethod.POST)
     public String newUser(@RequestParam String username, @RequestParam String password, @RequestParam String email, Model model){
-        /*
-    	boolean userExist = userService.isExist(username);
-        if(userExist){
-            String rePassword = password;
-            String reEmail = email;
-            String nameError = "This name is already registered, try something else.";
-            model.addAttribute("nameError",nameError);
-            model.addAttribute("rePassword",rePassword);
-            model.addAttribute("reEmail",reEmail);
+        
+        if(userService.alreadyExists(username)){
+        	System.out.println("username="+username+" dublicate");
+            model.addAttribute("nameError","This name is already registered, try something else.");
+            model.addAttribute("rePassword",password);
+            model.addAttribute("reEmail",email);
             return "register";
         }
-        */
+        
         try{
         	System.out.println("username="+username+", password="+password+", email="+email);
-            boolean isSuccess = userService.createUser(username, password);
-            if(isSuccess) {
-            	//After successfully Creating user
-            	UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
-                Authentication authentication = authManager.authenticate(authRequest);
-                if (authentication.isAuthenticated()) {
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                    System.out.println(String.format("Auto login successfully!", username));
-                }
-            }
+        	boolean isSuccess = userService.createUser(username, password);
+        	if(isSuccess) {
+        		//After successfully creating user
+        		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
+        		Authentication authentication = authManager.authenticate(authRequest);
+        		if (authentication.isAuthenticated()) {
+        			SecurityContextHolder.getContext().setAuthentication(authentication);
+        			//System.out.println(String.format("Auto login successfully!", username));
+        		}
+        	}
         } catch (Exception e){
-            System.out.println("newUser exception: "+e);
+        	System.out.println("newUser exception: "+e);
+        	e.printStackTrace();
         }
 
         return "redirect:/";
@@ -99,7 +103,7 @@ public class MainController {
         // After user login successfully.
         String userName = principal.getName();
  
-        System.out.println("User Name: " + userName);
+        //System.out.println("User Name: " + userName);
  
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
  

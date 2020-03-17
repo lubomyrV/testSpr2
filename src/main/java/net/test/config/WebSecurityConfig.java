@@ -84,11 +84,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenValiditySeconds(1 * 24 * 60 * 60); // 24h
  
     }
- 
+    
+ // Token stored in Table (Persistent_Logins)
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
-        db.setDataSource(dataSource);
+        db.setDataSource(this.dataSource);
         return db;
     }
  

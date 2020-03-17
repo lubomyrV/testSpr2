@@ -18,16 +18,16 @@ public class UserRole {
  
     @Id
     @GeneratedValue
-    @Column(name = "user_role_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
  
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_Id", nullable = false)
-    private AppUser appUser;
+    @JoinColumn(name = "user_id", nullable = false)
+    private AppUser user;
  
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_Id", nullable = false)
-    private AppRole appRole;
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
  
     public Long getId() {
         return id;
@@ -36,21 +36,26 @@ public class UserRole {
     public void setId(Long id) {
         this.id = id;
     }
- 
-    public AppUser getAppUser() {
-        return appUser;
-    }
- 
-    public void setAppUser(AppUser appUser) {
-        this.appUser = appUser;
-    }
- 
-    public AppRole getAppRole() {
-        return appRole;
-    }
- 
-    public void setAppRole(AppRole appRole) {
-        this.appRole = appRole;
-    }
- 
+
+	public AppUser getUser() {
+		return user;
+	}
+
+	public void setUser(AppUser user) {
+		this.user = user;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	@Override
+	public String toString() {
+		return "UserRole [id=" + id + ", user=" + user + ", role=" + role + "]";
+	}
+	
 }

@@ -10,40 +10,52 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "user", //
         uniqueConstraints = { //
-                @UniqueConstraint(name = "uc_user", columnNames = "user_name") })
+                @UniqueConstraint(name = "uc_user", columnNames = "username") })
 public class AppUser {
  
     @Id
     @GeneratedValue
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    @Column(name = "id", nullable = false)
+    private int id;
  
-    @Column(name = "user_name", length = 36, nullable = false)
-    private String userName;
+    @Column(name = "username", length = 64, nullable = false)
+    private String username;
+    
+    @Column(name = "email", length = 64)
+    private String email;
  
     @Column(name = "encryted_password", length = 128, nullable = false)
     private String encrytedPassword;
  
     @Column(name = "enabled", length = 1, nullable = false)
     private boolean enabled;
+    
  
-    public Long getUserId() {
-        return userId;
-    }
- 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
- 
-    public String getUserName() {
-        return userName;
-    }
- 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
- 
-    public String getEncrytedPassword() {
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+    public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getEncrytedPassword() {
         return encrytedPassword;
     }
  
@@ -58,5 +70,10 @@ public class AppUser {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
- 
+
+	@Override
+	public String toString() {
+		return "AppUser [id=" + id + ", username=" + username + ", email=" + email + ", enabled=" + enabled + "]";
+	}
+    
 }

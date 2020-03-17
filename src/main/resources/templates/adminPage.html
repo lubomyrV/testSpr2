@@ -1,22 +1,52 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-   <head>
-      <title th:utext="${title}"></title>
-   </head>
-   <body>
-      <!-- Include _menu.html -->
-      <th:block th:include="/_menu"></th:block>
-       
-      <h2>Admin Page</h2>
-      <h3>Welcome :
-         <span th:utext="${#request.userPrincipal.name}"></span>
-      </h3>
-      <b>This is protected page!</b>  
-       
-      <br/><br/>
-       
-      <div th:if="${userInfo != null}" th:utext="${userInfo}"></div>
-       
-   </body>
+<head>
+	<title th:utext="${title}"></title>
+	<link href="css/modal.css" rel="stylesheet">	
+	<link href="css/main.css" rel="stylesheet">
+</head>
+<body>
+	<th:block th:include="/_menu"></th:block>
+	
+    <input type="hidden" name="thisUser" th:value="${#request.userPrincipal.name}" id="thisUser" />
+	<h2>Admin Page</h2>
+	<h3>Welcome :
+		<span th:utext="${#request.userPrincipal.name}"  ></span>
+	</h3>
+	<b>This is protected page!</b>  
+      
+	<br/>
+      
+	<div th:if="${userInfo != null}" th:utext="${userInfo}"></div>
+    <br/>
+
+    <input type="text" placeholder="username or email" name="searchUser" id="searchUser" oninput="search()"/>
+    <br/>
+    <br/>
+    <div id="showAll" ></div>
+    
+    <!-- Trigger/Open The Modal -->
+	<!-- button id="myBtn">Open Modal</button -->
+	
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+	  <!-- Modal content -->
+	  <div class="modal-content">
+	    <span class="close">&times;</span>
+		<h3>Update User</h3>
+	    <p>Some text in the Modal..</p>
+	    <form >
+	    	<span id="editUser" ></span>
+	    	<br/>
+		  	<input type="button" value="Update" onclick="updateUser()"> 
+	  	</form>
+	  </div>
+	</div> 
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-git.min.js"></script>
+<script type="text/javascript" src="js/modal.js"></script>
+<script type="text/javascript" src="js/main.js" ></script>
+
+</body>
     
 </html>
